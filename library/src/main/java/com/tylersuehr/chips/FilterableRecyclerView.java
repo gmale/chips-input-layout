@@ -34,7 +34,6 @@ class FilterableRecyclerView extends RecyclerView implements ChipComponent {
 
     FilterableRecyclerView(Context c) {
         super(c);
-        setBackgroundColor(Color.WHITE);
         setLayoutManager(new LinearLayoutManager(c));
         setVisibility(GONE);
     }

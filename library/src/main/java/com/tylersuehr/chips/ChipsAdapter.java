@@ -22,18 +22,18 @@ import android.widget.RelativeLayout;
  * @author Tyler Suehr
  * @version 1.0
  */
-class ChipsAdapter
+public class ChipsAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements ChipsEditText.OnKeyboardListener, ChipDataSource.ChangeObserver {
-    private static final int CHIP  = 0;
-    private static final int INPUT = 1;
+    protected static final int CHIP  = 0;
+    protected static final int INPUT = 1;
 
-    private final ChipDataSource mDataSource;
-    private final ChipOptions mOptions;
-    private final ChipsEditText mEditText;
+    protected final ChipDataSource mDataSource;
+    protected final ChipOptions mOptions;
+    protected final ChipsEditText mEditText;
 
 
-    ChipsAdapter(ChipDataSource dataSource,
+    public ChipsAdapter(ChipDataSource dataSource,
                  ChipsEditText editText,
                  ChipOptions options) {
         mDataSource = dataSource;
@@ -116,7 +116,7 @@ class ChipsAdapter
         notifyDataSetChanged();
     }
 
-    private void autoFitEditText() {
+    protected void autoFitEditText() {
         // Set the EditText to a minimum width of its hint length
         ViewGroup.LayoutParams lp = mEditText.getLayoutParams();
         lp.width = (int)mEditText.calculateTextWidth();
@@ -155,7 +155,7 @@ class ChipsAdapter
         });
     }
 
-    private void showDetailedChipView(ChipView view, Chip chip, final int position) {
+    protected void showDetailedChipView(ChipView view, Chip chip, final int position) {
         // Get chip view's location
         int[] coord = new int[2];
         view.getLocationInWindow(coord);
@@ -179,7 +179,7 @@ class ChipsAdapter
         });
     }
 
-    private void setDetailedChipViewPosition(final ChipDetailsView detailedChipView, int[] coord) {
+    protected void setDetailedChipViewPosition(final ChipDetailsView detailedChipView, int[] coord) {
         // Window width
         final ViewGroup rootView = (ViewGroup)mEditText.getRootView();
         int windowWidth = Utils.getWindowWidth(rootView.getContext());
@@ -216,7 +216,7 @@ class ChipsAdapter
      * Nested inner-subclass of {@link RecyclerView.ViewHolder} that stores
      * reference to the a chip view.
      */
-    private class ChipHolder extends RecyclerView.ViewHolder implements
+    protected class ChipHolder extends RecyclerView.ViewHolder implements
             ChipView.OnChipClickListener, ChipView.OnChipDeleteListener {
         ChipView chipView;
 
