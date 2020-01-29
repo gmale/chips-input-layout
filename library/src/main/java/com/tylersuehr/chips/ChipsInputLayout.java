@@ -104,6 +104,14 @@ public class ChipsInputLayout extends MaxHeightScrollView
         if (mOptions.mHideKeyboardOnChipClick) {
             hideKeyboard();
         }
+
+        // TODO: add an option to keep focus on the editText
+        mChipsInput.post(new Runnable() {
+            @Override
+            public void run() {
+                mChipsInput.requestFocus()
+            }
+        })
     }
 
     /**
