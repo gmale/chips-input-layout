@@ -109,9 +109,9 @@ public class ChipsInputLayout extends MaxHeightScrollView
         mChipsInput.post(new Runnable() {
             @Override
             public void run() {
-                mChipsInput.requestFocus()
+                mChipsInput.requestFocus();
             }
-        })
+        });
     }
 
     /**
