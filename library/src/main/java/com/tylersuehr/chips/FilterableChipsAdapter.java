@@ -31,7 +31,7 @@ class FilterableChipsAdapter
     private final OnFilteredChipClickListener mListener;
     private final ChipDataSource mDataSource;
     private final ChipOptions mOptions;
-    private ChipFilter mFilter;
+    private Filter mFilter;
 
 
     FilterableChipsAdapter(ChipDataSource chipDataSource,
@@ -91,7 +91,7 @@ class FilterableChipsAdapter
     @Override
     public Filter getFilter() {
         if (mFilter == null) {
-            mFilter = new ChipFilter();
+            mFilter = new StartsWithFilter();
         }
         return mFilter;
     }
@@ -169,6 +169,34 @@ class FilterableChipsAdapter
                 for (Chip chip : mDataSource.getOriginalChips()) {
                     if (chip.getTitle().toLowerCase().contains(pattern)
                             || (chip.getSubtitle() != null && chip.getSubtitle().toLowerCase().replaceAll("\\s", "").contains(pattern))) {
+                        mDataSource.getFilteredChips().add(chip);
+                    }
+                }
+            }
+
+            results.values = mDataSource.getFilteredChips();
+            results.count = mDataSource.getFilteredChips().size();
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            notifyDataSetChanged();
+        }
+    }
+
+    private final class StartsWithFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            mDataSource.getFilteredChips().clear();
+            if (TextUtils.isEmpty(constraint)) {
+                mDataSource.getFilteredChips().addAll(mDataSource.getOriginalChips());
+            } else {
+                final String pattern = constraint.toString().toLowerCase().trim();
+                for (Chip chip : mDataSource.getOriginalChips()) {
+                    if (chip.getTitle().toLowerCase().startsWith(pattern)) {
                         mDataSource.getFilteredChips().add(chip);
                     }
                 }
