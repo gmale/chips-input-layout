@@ -660,8 +660,8 @@ public class ChipsInputLayout extends MaxHeightScrollView
     }
 
     private void hideKeyboard() {
-        ((InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
-                .hideSoftInputFromWindow(mChipsInput.getWindowToken(), 0);
+//        ((InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+//                .hideSoftInputFromWindow(mChipsInput.getWindowToken(), 0);
     }
 
 
