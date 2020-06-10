@@ -1,10 +1,12 @@
 package com.tylersuehr.chips;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Copyright © 2017 Tyler Suehr
@@ -95,6 +97,11 @@ public class ChipsAdapter
 
         // This will trigger callback, which calls notifyDataSetChanged()
         mDataSource.addSelectedChip(new DefaultCustomChip(text));
+    }
+
+    @Override
+    public void onKeyboardDelimiter(String text) {
+        onKeyboardActionDone(text);
     }
 
     /**

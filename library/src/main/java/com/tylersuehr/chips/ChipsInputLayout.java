@@ -1,25 +1,29 @@
 package com.tylersuehr.chips;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.support.annotation.DrawableRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.DrawableRes;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
 
 import java.util.List;
 import java.util.regex.Pattern;
+
+import static android.view.View.inflate;
 
 /**
  * Copyright © 2017 Tyler Suehr
@@ -719,7 +723,7 @@ public class ChipsInputLayout extends MaxHeightScrollView
                 if(Pattern.compile(delimiterRegex).matcher(text).find()){
                     final String[] pieces = text.split(delimiterRegex);
                     for(String piece : pieces) {
-                        mChipsInput.getKeyboardListener().onKeyboardActionDone(piece);
+                        mChipsInput.getKeyboardListener().onKeyboardDelimiter(piece);
                     }
                 }
             }
