@@ -1,7 +1,6 @@
 package com.tylersuehr.chips;
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
@@ -9,6 +8,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputConnectionWrapper;
 import android.widget.RelativeLayout;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 /**
  * Copyright © 2017 Tyler Suehr
@@ -98,6 +99,7 @@ public class ChipsEditText extends AppCompatEditText implements ChipComponent {
     interface OnKeyboardListener {
         void onKeyboardBackspace();
         void onKeyboardActionDone(String text);
+        void onKeyboardDelimiter(String text);
     }
 
 

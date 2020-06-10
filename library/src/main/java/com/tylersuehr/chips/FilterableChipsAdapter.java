@@ -1,7 +1,6 @@
 package com.tylersuehr.chips;
 
 import android.graphics.PorterDuff;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 /**
  * Copyright © 2017 Tyler Suehr
@@ -194,10 +197,22 @@ class FilterableChipsAdapter
             if (TextUtils.isEmpty(constraint)) {
                 mDataSource.getFilteredChips().addAll(mDataSource.getOriginalChips());
             } else {
-                final String pattern = constraint.toString().toLowerCase().trim();
+                // temp fix: by replacing the delimiter we allow the delimiter to result in a token being selected IFF the word is valid
+                final String pattern = constraint.toString().toLowerCase().trim().replace(",", "").replace(";", "").replace(".", "");
+                boolean found = false;
                 for (Chip chip : mDataSource.getOriginalChips()) {
                     if (chip.getTitle().toLowerCase().startsWith(pattern)) {
                         mDataSource.getFilteredChips().add(chip);
+                        found = true;
+                    }
+                }
+                if (!found) for (Chip chip : mDataSource.getSelectedChips()) {
+                    if (chip.getTitle().toLowerCase().startsWith(pattern)) {
+                        List<Chip> filteredChips = mDataSource.getFilteredChips();
+                        if (!filteredChips.contains(chip)) {
+                            filteredChips.add(chip);
+                        }
+                        found = true;
                     }
                 }
             }

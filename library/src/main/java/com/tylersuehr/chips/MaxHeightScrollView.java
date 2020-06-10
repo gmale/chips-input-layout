@@ -1,8 +1,9 @@
 package com.tylersuehr.chips;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
+
+import androidx.core.widget.NestedScrollView;
 
 /**
  * Copyright © 2017 Tyler Suehr
