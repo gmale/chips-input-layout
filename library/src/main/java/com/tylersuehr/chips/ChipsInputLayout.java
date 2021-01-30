@@ -684,14 +684,23 @@ public class ChipsInputLayout extends MaxHeightScrollView
      */
     private final class ChipInputTextChangedHandler implements TextWatcher {
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        public void onTextChanged(CharSequence s, int startIdx, int before, int count) {
             if (mFilteredRecycler != null) {
                 // Hide the filterable recycler if there is no filter.
                 // Filter the recycler if there is a filter
                 if (TextUtils.isEmpty(s)) {
                     mFilteredRecycler.fadeOut();
                 } else {
-                    mFilteredRecycler.filterChips(s.trim());
+                    // bugfix: trim whitespace from sequence
+                    int start = 0, length = s.length(), end = length - 1;
+                    while (Character.isWhitespace(s.charAt(start)) && start < end) start++;
+                    while (Character.isWhitespace(s.charAt(end)) && end > 0) end--;
+         	    if (end > start) {
+                        mFilteredRecycler.filterChips(s.subSequence(start, end + 1));
+                    } else {
+                        // in this case the string was all whitespace. Filter on it, rather than the empty string.
+                        mFilteredRecycler.filterChips(s);
+                    }
                 }
             }
         }
