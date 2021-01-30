@@ -691,7 +691,7 @@ public class ChipsInputLayout extends MaxHeightScrollView
                 if (TextUtils.isEmpty(s)) {
                     mFilteredRecycler.fadeOut();
                 } else {
-                    mFilteredRecycler.filterChips(s);
+                    mFilteredRecycler.filterChips(s.trim());
                 }
             }
         }
